@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Published-posts by cloud66</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Published-posts</h1>
+        <p class="header">Posts published on Cloud 66 Blog for public review and contribution</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/cloud66/published-posts/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/cloud66/published-posts/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/cloud66/published-posts">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/cloud66">cloud66</a></p>
+
+
+      </header>
+      <section>
+        <h2>
+<a id="docker-in-production-from-a-to-z" class="anchor" href="#docker-in-production-from-a-to-z" aria-hidden="true"><span class="octicon octicon-link"></span></a>Docker in production from A to Z</h2>
+
+<p>If you have tried using Linux containers (like Docker) in production, you are aware of the difficulties surrounding image building, orchestration of containers, logging and monitoring them. </p>
+
+<p>Cloud 66 simplifies Ops for developers by building, configuring and managing your servers on any cloud. Our Docker support provides a complete toolset for rolling out containers to production on your own infrastructure.</p>
+
+<p>Today we are excited to share with you our <a href="http://help.cloud66.com/building-your-stack/introduction-to-docker-deployments">Docker toolset for production</a>. A complete product suite to make it easy to benefit from containers in a production environment.</p>
+
+<p>But first let’s have a look at some of the hurdles of getting containers into production:</p>
+
+<h2>
+<a id="using-containers-for-development-is-easy-not-so-much-in-production" class="anchor" href="#using-containers-for-development-is-easy-not-so-much-in-production" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using containers for development is easy; not so much in production.</h2>
+
+<p><a href="https://www.docker.com/">Docker</a> (and Linux containers in general) can improve many aspects of software development. They bring:</p>
+
+<ul>
+<li>Consistency between development and production</li>
+<li>Packaged runtime dependencies</li>
+<li>Decoupling from underlying hardware, virtualisation and OS for many applications</li>
+<li>Speed in build and deployment</li>
+</ul>
+
+<p>However running a container-based stack in production is not easy. Here is what you need:</p>
+
+<ul>
+<li>A complete build process to build container images based on your code deterministically and continuously. </li>
+<li>A private Docker image repository to keep your images versioned and linked back to your code commits</li>
+<li>An orchestration engine to rollout those images into containers on your servers, monitor them and manage their lifecycle with each new deployment, as well as take care of scaling of containers and servers.</li>
+<li>A network that exposes containers’ network internally or to the outside world and connects the containers together across the cluster.</li>
+<li>
+<a href="http://en.wikipedia.org/wiki/Service_discovery">“Service Discovery”</a> to allow different parts of your application find each other inside your containers.</li>
+<li>Load Balancing for internal and external services provided by the containers</li>
+<li>Production-ready database within the cluster with backups and replication.</li>
+<li>Log collection across all containers and servers</li>
+</ul>
+
+<p>Cloud 66 provides all of these to you in one simple to use tool including web UI, command line and API.</p>
+
+<p>Let’s see how: </p>
+
+<h2>
+<a id="cloud-66-docker-production-toolset" class="anchor" href="#cloud-66-docker-production-toolset" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cloud 66 Docker production toolset</h2>
+
+<p>Cloud 66 support for Docker, includes a complete set of tools you need to run your applications in containers and in production. Here is a summary:</p>
+
+<ul>
+<li>
+<strong>BuildGrid</strong>: a hosted Docker image building service to build Docker images directly from your git code repository.</li>
+<li>
+<strong>Docker Image Repository</strong>: BuildGrid comes with a Docker image repository to hold and distribute your built container images.</li>
+<li>
+<strong>Deployment Engine</strong>: A cloud deployment system compatible with all major cloud providers (AWS, Rackspace, DigitalOcean, Linode, Azure, Google Cloud and OpenStack) to fire up, build and configure servers under your own cloud account.</li>
+<li>
+<strong>Orchestration Engine</strong>: A container management system to rollout containers to your servers, distribute and balance external and internal traffic to them, manage their lifecycle during deployments and take care of scaling servers and containers.</li>
+<li>
+<strong>Data services</strong>: Build, deployment and management of databases  on your servers, compatible with MySQL, PostgreSQL, MongoDB, Redis and ElasticSearch. Including off-site managed backups and replication.</li>
+<li>
+<strong>ContainerNet</strong>: A private and secure network between all containers, databases and hosts across your infrastructure with an automatically updated DHCP and DNS fully integrated with the Orchestration Engine and Deployment Engine.</li>
+<li>
+<strong>Logging</strong>: A framework to collect logs from all running containers that can be sent to SysLog or a 3rd party vendor for processing.</li>
+<li>
+<strong>Monitoring</strong>: A server and container monitoring system to watch vital signs on servers and containers and produce alerts.</li>
+<li>
+<strong>Automatic upgrades</strong>: Monitoring of OS and components in your infrastructure to produce warnings and automatic upgrades when needed.</li>
+<li>
+<strong>Security and ACL</strong>: Provisioning, management and monitoring of firewalls, brute force login attempts and user access permissions to all servers for your team members.</li>
+</ul>
+
+<p>{}<img src="http://cdn.cloud66.com/images/blog/cloud66_overview_5.png" alt="Cloud 66 Overview"></p>
+
+<p>Details about some of the these components are below. For those interested in technical details, please feel free to visit <a href="http://help.cloud66.com/building-your-stack/introduction-to-docker-deployments">our documentation</a>.</p>
+
+<h2>
+<a id="from-code-to-docker-images-with-buildgrid" class="anchor" href="#from-code-to-docker-images-with-buildgrid" aria-hidden="true"><span class="octicon octicon-link"></span></a>From Code to Docker images with BuildGrid</h2>
+
+<p>BuildGrid is a hosted Docker image building service that fetches your code from any git repository and uses your own Dockerfile to build a Docker image.</p>
+
+<p>The first step in using containers in production is introducing them into your development process. </p>
+
+<p>This involves building Docker images from your code and based on your requirements. If you have this process in place and generate Docker images from your code on a build server or in a <a href="https://codeship.com">CI system like Codeship</a>, you can simply point Cloud 66 to your image repository. Alternatively you can use BuildGrid to build your images for you from your code.</p>
+
+<p>BuildGrid can be configured to rebuild new images every time code is committed into the repository, to achieve full continuous delivery. </p>
+
+<p>BuildGrid comes with a private Docker image repository and a web UI which links code commits to an image, successful and failed builds and build logs. Images can be pulled from this repository to your development workstation for debugging and testing purposes.</p>
+
+<h2>
+<a id="containernet" class="anchor" href="#containernet" aria-hidden="true"><span class="octicon octicon-link"></span></a>ContainerNet</h2>
+
+<p>ContainerNet is a private and secure network connecting all of your containers and hosts in your cluster. It comes with built-in DHCP and DNS (ElasticDNS) services that are aware of your entire stack and deployments and reflect any changes in any of those across your stack automatically.</p>
+
+<p>ContainerNet is backed by <a href="http://weave.works/">Weave</a> which brings a native-like network interface to the containers requiring no code changes, is highly performant and secure and scales very well.</p>
+
+<p><em>Note: ElasticDNS is the name of our DNS service which is available from all containers and is fully integrated with BuildGrid and our deployment engine.</em></p>
+
+<p>{}<img src="http://cdn.cloud66.com/images/blog/cloud66-docker.png" alt="Cloud 66 ContainerNet"></p>
+
+<h4>
+<a id="containernet-and-elasticdns" class="anchor" href="#containernet-and-elasticdns" aria-hidden="true"><span class="octicon octicon-link"></span></a>ContainerNet and ElasticDNS</h4>
+
+<p>Every service deployment updates the DNS servers across the cluster to have the correct containers for each container and host. </p>
+
+<p>ElasticDNS is capable of returning the best candidate for each DNS query: round robin, closest or same version as the caller.</p>
+
+<p>This is the simplest way to use Service Discovery without forcing any code change on your side.</p>
+
+<h2>
+<a id="log-collection" class="anchor" href="#log-collection" aria-hidden="true"><span class="octicon octicon-link"></span></a>Log Collection</h2>
+
+<p>Logs from all containers are collected into specific but customisable folders on each host and can be configured to be sent to hosted log providers like <a href="https://logentries.com/">Logentries</a> or your own Syslog. To take it further you can use Docker’s stats API for better logging and stats gathering with <a href="https://logentries.com/logentries-releases-logging-container-docker-1-5-stats-api/">Logentries’ recent full integration</a>.</p>
+
+<h2>
+<a id="extras" class="anchor" href="#extras" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extras</h2>
+
+<p>All stacks deployed with Cloud 66 also benefit from the following:</p>
+
+<ul>
+<li>Server-level dynamic <a href="http://help.cloud66.com/managing-your-stack/stack-network-settings">firewall configuration and security</a>.</li>
+<li>OS monitoring and automatic upgrades on your own schedule.</li>
+<li>Fine grained <a href="http://help.cloud66.com/account-management/team-accounts">team access control</a> for each stack and server.</li>
+<li>Webhooks and API allows you integrate container and deployments with your existing scripts and systems.</li>
+</ul>
+
+<h1>
+<a id="summary" class="anchor" href="#summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summary</h1>
+
+<p>The Cloud 66 platform manages thousands of servers across 76 data centres in 8 cloud providers for hundreds of small and large companies. Thousands of developers rely on Cloud 66 every day to build, deploy and manage their applications on their servers. </p>
+
+<p>We’d love to help your engineering team be more productive and your company move faster by making use of Docker in production easier!</p>
+
+<p>Starting with <a href="http://help.cloud66.com/building-your-stack/introduction-to-docker-deployments">Docker on Cloud 66</a> is very easy. <a href="http://www.cloud66.com/">Try it for free</a>!</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
